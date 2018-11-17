@@ -3,7 +3,7 @@
 set nocompatible
 
 " Set terminal to 256 colors
-" set t_Co=256
+set t_Co=256
 
 " Enable plugin management
 execute pathogen#infect()
@@ -19,6 +19,9 @@ syntax enable
 
 " Enable syntax highlighting.
 syntax on
+
+" Switch buffers without closing them
+set hidden
 
 " Automatically indent when adding a curly bracket, etc.
 set smartindent
@@ -39,6 +42,7 @@ set number
 " Minimal number of screen lines to keep above and below the cursor.
 set scrolloff=999
 
+
 " Use UTF-8.
 set encoding=utf-8
 
@@ -48,11 +52,15 @@ if has("gui_running")
 else
     set background=dark
 endif
-colorscheme solarized
+colorscheme nord
+
+" Set vim-airline theme
+let g:airline_theme='nord'
+let g:airline#extensions#tabline#enabled = 1
 
 " Status line
-set laststatus=2
-set statusline=
+" set laststatus=2
+" set statusline=
 " set statusline+=%-3.3n\ " buffer number
 " set statusline+=%f\ " filename
 " set statusline+=%h%m%r%w " status flags
@@ -78,6 +86,7 @@ imap <c-s> <Esc>:w<CR>a
 
 " Search as you type.
 set incsearch
+
 
 " Highlight search
 set hlsearch
@@ -111,16 +120,40 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" Set vim-airline theme
-let g:airline_theme='wombat'
-
 " Open NERDTree by default
 " autocmd VimEnter * NERDTree
 " autocmd VimEnter * wincmd p
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " ycm configuration
-let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+" let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+"
+" let g:ycm_register_as_syntastic_checker = 1 "default 1
+" let g:Show_diagnostics_ui = 1 "default 1
+
+" will put icons in Vim's gutter on lines that have a diagnostic set.
+" Turning this off will also turn off the YcmErrorLine and YcmWarningLine
+" highlighting
+" let g:ycm_enable_diagnostic_signs = 1
+" let g:ycm_enable_diagnostic_highlighting = 0
+" let g:ycm_always_populate_location_list = 1 "default 0
+" let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
+"
+" let g:ycm_complete_in_strings = 1 "default 1
+" let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
+" let g:ycm_path_to_python_interpreter = '' "default ''
+"
+" let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
+" let g:ycm_server_log_level = 'info' "default info
+"
+" let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'  "where to search for .ycm_extra_conf.py if not found
+" let g:ycm_confirm_extra_conf = 1
+"
+" let g:ycm_goto_buffer_command = 'same-buffer' "[ 'same-buffer', 'horizontal-split', 'vertical-split', 'new-tab' ]
+" let g:ycm_filetype_whitelist = { '*': 1 }
+" let g:ycm_key_invoke_completion = '<C-Space>'
+"
+" nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 
 " vim pencil configurations
 augroup pencil
@@ -128,3 +161,23 @@ augroup pencil
   autocmd FileType markdown,mkd call pencil#init()
   autocmd FileType text         call pencil#init()
 augroup END
+
+" nerdcommenter
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+" let g:NERDDefaultAlign = 'left'
+" let g:NERDAltDelims_java = 1
+" let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
+
+" easy buffer switching
+nnoremap bp :bp<CR>
+nnoremap bn :bn<CR>
+nnoremap bs :ls<CR>:b<Space>
+
+" special syntax highlighting for q programming language
+" hi Special ctermfg=red " for query specific keywords
+" hi Underlined ctermfg=magenta cterm=bold " for local variables
+set tags=tags;
